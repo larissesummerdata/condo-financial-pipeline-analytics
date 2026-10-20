@@ -1,0 +1,18 @@
+# Arquivos de ambiente e virtuais
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Bloqueia pastas de código e lógica interna do Git
+src/
+sql/
+data/
+
+# Bloqueia arquivos de dados brutos
+*.pdf
+*.duckdb
+*.parquet
+*.png
+*.jpg
