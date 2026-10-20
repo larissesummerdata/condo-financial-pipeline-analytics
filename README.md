@@ -12,40 +12,24 @@ Mensalmente, administrações condominiais emitem prestações de contas consoli
 - Extratos de conta bancária sem grade delimitadora de tabela;
 - Centenas de páginas anexas com comprovantes avulsos de PIX, TED, faturas de concessionárias e notas fiscais.
 
-Essa dispersão gera uma barreira crítica de leitura para condôminos conhecerem para onde vai a sua contribuição de taxa e outras despesas . Conferir manualmente página por página para entender o destino da arrecadação ou fiscalizar a conformidade dos pagamentos é uma tarefa inviável no dia a dia.
+Essa dispersão gera uma barreira crítica de transparência: conferir página por página para auditar a conformidade de pagamentos e entender a real destinação das taxas condominiais é uma tarefa inviável no dia a dia dos moradores e do conselho fiscal.
 
-Este projeto nasceu de uma necessidade real: **estruturar, sanear e conciliar 100% dos dados financeiros do condomínio onde resido**, eliminando a assimetria de informação e construindo uma base de dados governada capaz de alimentar relatórios visuais claros, intuitivos e acessíveis para qualquer condômino conhecer e entender as receitas e necessidade de gastos de seu condominio, ate mesmo para conseguir discutir sobre aumento ou redução da taxa de condomínio.
+Este projeto nasceu de uma necessidade real: **estruturar, sanear e conciliar 100% dos dados financeiros do condomínio onde resido**, eliminando a assimetria de informação. A iniciativa constrói uma base governada que viabiliza relatórios visuais claros, permitindo aos condôminos compreenderem a distribuição de despesas essenciais e embasarem decisões assertivas sobre reajustes ou reduções de taxa em assembleia.
 
 ---
 
 ## Objetivos de Engenharia & Negócio
 
-1. **Acessibilidade & Democratização da Informação:** Traduzir centenas de páginas contábeis em visões diretas de fluxo de caixa, evolução de despesas fixas, variáveis e poder decidir sobre a alocação dos recursos financeiros.
-2. **Rastreabilidade Forense Contínua:** Preservar em cada linha carregada o nome do arquivo original e o **número exato da página**, permitindo auditoria visual imediata contra o documento comprobatório.
-3. **Validação Matemática Centesimal:** Aplicar testes de conciliação pré-carga que conferem se a soma dos lançamentos analíticos bate exatamente no centavo com os cabeçalhos declarados pela administração.
-4. **Infraestrutura em Nuvem Gerenciada:** Arquitetura 100% cloud baseada em schemas nativos do PostgreSQL (Supabase), garantindo persistência estruturada sem custos de servidores locais.
+1. **Acessibilidade & Democratização da Informação:** Traduzir centenas de páginas contábeis em visões intuitivas de fluxo de caixa, evolução de custos fixos/variáveis e suporte à alocação estratégica de recursos.
+2. **Rastreabilidade Forense Contínua:** Preservar em cada linha carregada o nome do arquivo original e o **número exato da página**, viabilizando auditoria visual imediata contra o documento comprobatório.
+3. **Validação Matemática Centesimal:** Aplicar testes de conciliação pré-carga que conferem se o somatório dos lançamentos analíticos coincide exatamente no centavo com os cabeçalhos declarados pela administração.
+4. **Infraestrutura em Nuvem Gerenciada:** Arquitetura 100% cloud baseada em schemas nativos do PostgreSQL (Supabase), garantindo persistência relacional governada sem custos com servidores dedicados.
 
 ---
 
 ## Arquitetura da Solução
 
-O fluxo de dados segue o padrão **Medallion Architecture (Bronze ➔ Silver ➔ Gold)**, implementado via schemas dedicados no PostgreSQL:
-
-[ 1. Ingestão & RAW ] ➔ [ 2. Silver (Transformação) ] ➔ [ 3. Gold (Analytics) ] ➔ [ 4. Consumo ]
-
----
-
-## Estrutura do Repositório
+O fluxo de dados segue o padrão **Medallion Architecture (Bronze ➔ Silver ➔ Gold)** centralizado no Supabase, garantindo segregação de responsabilidades desde o dado bruto até a camada de consumo:
 
 ```text
-├── sql/
-│   └── setup_schemas.sql     # DDL de criação e permissões dos schemas (bronze, silver, gold)
-├── src/
-│   ├── __init__.py           # Inicializador do pacote Python
-│   ├── connection.py         # Gerenciamento de conexão segura com a API do Supabase
-│   ├── extractors.py         # Motores de parsing (pdfplumber, regex de extrato e tabelas)
-│   └── main.py               # Orquestrador do pipeline de carga na camada Bronze
-├── .gitignore                # Bloqueio de arquivos sensíveis (.env, *.pdf, *.duckdb)
-├── README.md                 # Documentação arquitetural e estudo de caso
-└── requirements.txt          # Dependências do projeto (supabase, pdfplumber, python-dotenv)
-
+[ 1. Ingestão & RAW ] ➔ [ 2. Silver (Transformação) ] ➔ [ 3. Gold (Analytics) ] ➔ [ 4. Consumo ]
