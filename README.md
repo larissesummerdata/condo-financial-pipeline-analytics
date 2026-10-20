@@ -49,25 +49,3 @@ O fluxo de dados segue o padrão **Medallion Architecture (Bronze ➔ Silver ➔
 ├── README.md                 # Documentação arquitetural e estudo de caso
 └── requirements.txt          # Dependências do projeto (supabase, pdfplumber, python-dotenv)
 
-
-## Privacidade e Conformidade (LGPD)
-Em estrito respeito à privacidade dos condôminos, nenhum dado pessoal identificável (PII), nome de moradores ou chave bancária de terceiros é exposto publicamente neste repositório.
-
-Arquivos de configuração contendo segredos de infraestrutura (.env) e os documentos originais brutos (*.pdf) são permanentemente ignorados pelo controle de versão.
-
-
-## Status do Projeto
-[x] Modelagem e criação dos schemas bronze, silver e gold no Supabase.
-
-[x] Ingestão modular da arrecadação e boletos com testes de validação contábil.
-
-[x] Ingestão modular do extrato de conta corrente com preservação de ordenação.
-
-[x] Ingestão modular do Livro Razão analítico de despesas.
-
-[ ] Parsing e cruzamento de documentos fiscais e comprovantes anexos.
-
-[ ] Modelagem das transformações e testes de qualidade via dbt.
-
-[ ] Construção do dashboard analítico para os moradores.
-```
