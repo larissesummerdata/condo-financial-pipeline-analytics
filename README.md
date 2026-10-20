@@ -1,4 +1,4 @@
-# 🏢 Condo Financial Pipeline Analytics: Pipeline ELT & Auditoria Contábil
+# 🏢 Pipeline ELT & Auditoria Contábil
 
 > Pipeline ELT em nuvem (Python + Supabase PostgreSQL) para ingestão automatizada, higienização contábil e auditoria analítica de prestações de contas condominiais a partir de documentos extensos e desestruturados.
 
@@ -30,6 +30,44 @@ Este projeto nasceu de uma necessidade real no condomínio onde resido: **estrut
 ## Arquitetura da Solução
 
 O pipeline adota o padrão **Medallion Architecture (Bronze ➔ Silver ➔ Gold)** centralizado no PostgreSQL (Supabase):
+<img width="3364" height="1329" alt="Pipe Code Financial GIT" src="https://github.com/user-attachments/assets/88b24ec3-13d7-4e16-8643-a2ef2da74b80" />
+
+---
+
+## Estrutura do Repositório
 
 ```text
-[ 1. Ingestão & RAW ] ➔ [ 2. Silver (Transformação) ] ➔ [ 3. Gold (Analytics) ] ➔ [ 4. Consumo ]
+├── sql/
+│   └── setup_schemas.sql     # DDL de criação e permissões dos schemas (bronze, silver, gold)
+├── src/
+│   ├── __init__.py           # Inicializador do módulo Python
+│   ├── connection.py         # Gerenciamento de credenciais e conexão com o Supabase
+│   ├── extractors.py         # Motores de extração (pdfplumber, regex para extrato e tabelas)
+│   └── main.py               # Orquestrador do fluxo de ingestão e carga na camada Bronze
+├── docs/                     # Diagramas e documentação arquitetural
+├── .gitignore                # Bloqueio rigoroso de dados sensíveis e credenciais
+├── README.md                 # Documentação do estudo de caso e pipeline
+└── requirements.txt          # Dependências do projeto (supabase, pdfplumber, python-dotenv)
+```
+---
+
+## Privacidade e Conformidade (LGPD)
+Em estrito respeito à privacidade dos moradores, nenhum dado pessoal identificável (PII), nome completo de condôminos ou chaves bancárias de terceiros é versionado ou publicado neste repositório.
+Credenciais de infraestrutura (.env), bancos locais e os balancetes originais brutos (*.pdf) são mantidos exclusivamente em ambiente local, protegidos contra versionamento via .gitignore.
+
+---
+
+## Status do Projeto (em desenvolvimento...)
+[x] Modelagem e provisionamento dos schemas bronze, silver e gold no Supabase.
+
+[x] Ingestão modular da arrecadação e boletos com testes de validação contábil.
+
+[x] Ingestão modular do extrato de conta corrente com preservação de ordenação transacional.
+
+[x] Ingestão modular do Livro Razão analítico de despesas.
+
+[ ] Extração e conciliação de comprovantes e documentos fiscais anexos.
+
+[ ] Modelagem das transformações e testes de integridade via dbt.
+
+[ ] Construção dos dashboards analíticos para acompanhamento dos condôminos no Looker Studio.
