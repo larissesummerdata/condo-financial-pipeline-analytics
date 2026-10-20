@@ -1,18 +1,31 @@
-# Arquivos de ambiente e virtuais
+# Arquivos de ambiente e segredos (NUNCA versionar)
 .env
+*.env
+
+# Ambientes virtuais e caches Python
 .venv/
 venv/
+ENV/
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
-# Bloqueia pastas de código e lógica interna do Git
-src/
-sql/
-data/
+# IDEs e editores
+.vscode/
+.idea/
 
-# Bloqueia arquivos de dados brutos
+# Dados brutos, temporários e analíticos locais
 *.pdf
 *.duckdb
 *.parquet
+*.csv
+*.xlsx
 *.png
 *.jpg
+*.jpeg
+
+# Ignora o conteúdo de dados mantendo a pasta no projeto via .gitkeep
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
